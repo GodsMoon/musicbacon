@@ -14,7 +14,7 @@ var express = require('express')
 GLOBAL.pg = require('pg').native;
 client = new pg.Client(connectionString);
 client.connect();
-query = client.query(
+/*query = client.query(
 		'CREATE TABLE taglines				\
 		(									\
 		  id serial NOT NULL,				\
@@ -30,7 +30,7 @@ query = client.query(
 		  OIDS=FALSE						\
 		);									\
 		ALTER TABLE taglines				\
-		  OWNER TO postgres;');
+		  OWNER TO postgres;');*/
 //query.on('end', function() { client.end(); });
 
 var app = module.exports = express.createServer();
