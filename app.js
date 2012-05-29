@@ -62,8 +62,8 @@ app.get('/shirt/:id', routes.shirt);
 app.get('/', routes.index);
 
 
-
-app.listen(46929, function(){
+var port = process.env.PORT || 3000;
+app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
 
