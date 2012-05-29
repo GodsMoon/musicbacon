@@ -1,0 +1,43 @@
+#head
+	img(src="/images/musicbacon-banner.png", width="1000px")
+	- if (typeof tagline != "undefined") 
+		h2= tagline
+	- else
+		h2 
+#content.box
+	h3 We need your help!
+	p Music Bacon needs your help finding the best tagline for our startup. 
+		|There are hundreds of potintially great taglines for Music Bacon. For example, 
+	p.center "Tasty, Tasty Music"
+	p We want to find the <b>best one</b>. Enter a tagline below to see what it looks like.
+		|When you discover one you like, submit it and invite your friends to vote for you.
+	p.center The person that gets the most Facebook "likes" on their T-shirt taglines by <br/><b>June 5th 11:59PM wins the T-shirt they created!</b>
+	#shirt-container
+		img#shirt(src="/images/shirt.png")
+		#shirt-logo
+			p.center Music Bacon
+		
+		- if (typeof tagline != "undefined") 
+			#tagline-view
+				p.center= tagline
+		- else
+			#tagline-view
+				p.center Your Tagline Here
+		
+	
+	<form id="post-tagline" action="/post/tagline" method="post">
+	// label Your Tagline:
+	textarea(name='tagline') Your Tagline Here
+	input(type='submit', value='Submit')
+
+	</form>
+	
+#taglines.box
+	h4 Other Submitted T-shirt Taglines
+	if(typeof shirts != "undefined")
+	ul.shirts
+		each shirt in shirts.rows
+			li
+				div= shirt.tag
+				p look over here
+
