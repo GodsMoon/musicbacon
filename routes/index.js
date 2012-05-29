@@ -6,14 +6,14 @@
 var util = require('util');
 
 exports.index = function(req, res){
-	/*pg.connect(process.env.DATABASE_URL, after(function(client) {
+	pg.connect(process.env.DATABASE_URL, after(function(client) {
 	    client.query("SELECT * FROM taglines", after(function(result) {
 	    	//res.send({ title: 'Music Bacon', tagline: 'hello world', shirts: result });
 
 	    		res.render('index', { title: 'Music Bacon', shirts: result, tagline: 'hello world' });
 	    }))
-	}))*/
-	res.send({ title: 'Music Bacon', tagline: 'hello world'});
+	}))
+	//res.send({ title: 'Music Bacon', tagline: 'hello world'});
 	
 };
 
