@@ -1,5 +1,6 @@
 html {
   	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  	font-family: 'Open Sans', sans-serif;
     background-repeat:no-repeat;
     background-position: center center fixed;
 	
@@ -16,15 +17,45 @@ html {
 }
 
 a {
-  color: #00B7FF;
+  color: #c43831;
+  text-decoration: none;
 }
 
-h3, h2{
+h2{
 	text-align: center;
+	font-size: xx-large;
+}
+
+h3{
+	text-align: center;
+}
+
+h4{
+	text-align: left;
 }
 
 p{
 	text-align: left;
+}
+
+ul{
+	padding: 0px;
+}
+
+li{
+	list-style-type: none;
+	list-style-position:outside;
+	text-align: left;
+}
+
+li a{
+	font-size: large;
+}
+
+div.hr{
+	background: #ef6e7d;
+	height: 1px;
+	clear: both;
 }
 
 #head{
@@ -36,7 +67,7 @@ p{
 	width: 700px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 30px;
+	padding: 10px 30px 30px 30px;
 	text-align: center;
 	border-radius: 14px; 
 	-moz-border-radius: 14px; 
@@ -54,7 +85,7 @@ p{
 }
 
 #taglines{
-	margin-top: 30px;
+	margin-top: 10px;
 	/* background: rgba(255, 255, 255, .5); */
 }
 
@@ -79,7 +110,53 @@ p{
 	position: absolute;
 	top: 130px;
 	width:100%;
-	color: #FFF;
+	color: #f7eecb;
+}
+
+.tagline-huge{
+	font-family: 'Niconne', cursive;
+	font-size: 50pt;
+	line-height: .0em;
+	position: relative;
+	top: -25px;
+	
+}
+
+.tagline-big{
+	font-family: 'Niconne', cursive;
+	font-size: xx-large;
+	line-height: .2em;
+}
+
+.tagline-shirt{
+	font-family: 'Niconne', cursive;
+	font-size: medium;
+	line-height: .2em;
+}
+
+.other-shirt{
+	height: 80px;
+}
+
+.like-count{
+	height:100%;
+	width: 68px;
+	float: left;
+	/*border:1px solid red;*/
+}
+
+.like{
+	text-align: center;
+	font-size: x-large;;
+	padding-top: 10px;
+	padding-left: 8px;
+}
+
+.like-other{
+	height:80%;
+	width: 300px;
+	float: left;
+	padding-top: 8px;
 }
 
 .center{

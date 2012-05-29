@@ -10,7 +10,7 @@ exports.index = function(req, res){
 	    client.query("SELECT * FROM taglines", after(function(result) {
 	    	//res.send({ title: 'Music Bacon', tagline: 'hello world', shirts: result });
 
-	    		res.render('index', { title: 'Music Bacon', shirts: result, tagline: 'hello world' });
+	    		res.render('index', { title: 'Music Bacon', shirts: result });
 	    }))
 	}))
 	//res.send({ title: 'Music Bacon', tagline: 'hello world'});
