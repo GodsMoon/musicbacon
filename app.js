@@ -14,7 +14,23 @@ var express = require('express')
 GLOBAL.pg = require('pg').native;
 client = new pg.Client(connectionString);
 client.connect();
-query = client.query('SELECT * FROM taglines');
+query = client.query(
+		'CREATE TABLE taglines				\
+		(									\
+		  id serial NOT NULL,				\
+		  tag character varying(50),		\
+		  likes integer,					\
+		  "user" character varying(50),		\
+		  date date,						\
+		  slug character varying(50),		\
+		  CONSTRAINT id PRIMARY KEY (id ),	\
+		  CONSTRAINT slg UNIQUE (slug )		\
+		)									\
+		WITH (								\
+		  OIDS=FALSE						\
+		);									\
+		ALTER TABLE taglines				\
+		  OWNER TO postgres;');
 //query.on('end', function() { client.end(); });
 
 var app = module.exports = express.createServer();
