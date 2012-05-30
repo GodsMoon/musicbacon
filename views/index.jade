@@ -3,22 +3,24 @@ script
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId      : #{process.env.FACEBOOK_APP_ID}, // App ID
-			channelUrl : '#{baseurl}channel.html', // Channel File
+			channelUrl : "#{url('channel.html')}", // Channel File
 			status     : true, // check login status
 			cookie     : true, // enable cookies to allow the server to access the session
 			xfbml      : true  // parse XFBML
 		});
+		
+		// Listen to the auth.login which will be called when the user logs in
+		// using the Login button
+		FB.Event.subscribe('auth.login', function(response) {
+			// We want to reload the page now so PHP can read the cookie that the
+			// Javascript SDK sat. But we don't want to use
+			// window.location.reload() because if this is in a canvas there was a
+			// post made to this page and a reload will trigger a message to the
+			// user asking if they want to send data again.
+			window.location = "/post/tagline";
+		});
 	};
-	// Listen to the auth.login which will be called when the user logs in
-	// using the Login button
-	/*FB.Event.subscribe('auth.login', function(response) {
-		// We want to reload the page now so PHP can read the cookie that the
-		// Javascript SDK sat. But we don't want to use
-		// window.location.reload() because if this is in a canvas there was a
-		// post made to this page and a reload will trigger a message to the
-		// user asking if they want to send data again.
-		window.location = window.location;
-	});*/
+	
 
 	// Load the SDK Asynchronously
 	(function(d){
@@ -34,9 +36,14 @@ script
 		h2.tagline-huge= tagline
 
 #content.box
+	- if (user) {
+		p hello world #{user} #{console.log(user)}
+	-}
+
+	!= messages()
 	h2 We Need Your Help!
 	p Music Bacon needs your help finding the best tagline for our startup. 
-		|There are hundreds of potintially great taglines for Music Bacon. For example, 
+		|There are hundreds of potentially great taglines for Music Bacon. For example, 
 	p.center.tagline-big Tasty, Tasty Music
 	p We're looking for your best <b>fun, random, and crazy tagline</b> for Music Bacon. Enter a tagline below to see what it looks like.
 		|When you discover one you like, submit it and invite your friends to vote for your shirt by clicking the Facebook "Like" button.
@@ -48,33 +55,41 @@ script
 		
 		- if (typeof tagline != "undefined") 
 			#tagline-view
-				p.center.tagline-shirt= tagline
+				p#tagline-text.center.tagline-shirt!= tagline.replace("\n","<br />")
 		- else
 			#tagline-view
-				p.center.tagline-shirt Your Tagline Here
+				p#tagline-text.center.tagline-shirt Your Tagline Here
 		
 	
 	<form id="post-tagline" action="/post/tagline" method="post">
 	// label Your Tagline:
-	textarea(name='tagline') Your Tagline Here
-	input(type='submit', value='Submit')
-	<div class="fb-login-button" data-scope="user_likes">Login to Submit</div>
-
+	textarea#txtarea(name='tagline', width='5', onKeyUp="mirror();") Your Tagline Here
+	-if (user) {
+		<button href="javascript: document.forms['post-tagline'].submit()" class="submit">Submit Tagline</button>
+		//input(type='submit', value='Submit Tagline',class='submit')
+	-}else{
+		<div class="fb-login-button" data-scope="user_likes,email">Login and Submit</div>
+	-}
+	
 	</form>
+
+	p.center We will be selling the winning T-shirt tagline on this site. 
 	p.center As a bonus, any T-shirt that gets over 50 "likes" will be added to our <a href="http://www.zazzle.com/muiscbacon">Zazzle store</a> for purchase.
 	
 #taglines.box
 	h4 Other T-shirt Taglines
-	if(typeof shirts != "undefined")
+	-if(typeof shirts != "undefined"){
 	ul.shirts
 		each shirt in shirts.rows
 			li
 				div.other-shirt
 					div.like-count
 						// p.like 99
-						<div class="fb-like like" data-href="http://127.0.0.1:3000/shirt/#{shirt.slug}" data-send="false" data-layout="box_count" data-width="66" data-show-faces="true"></div>
+						//<iframe class='facebook_like' src="'http://www.facebook.com/plugins/like.php?href=' + data:post.url + '&layout=button_count&show_faces=false&width=350&action=like&font=trebuchet+ms&colorscheme=dark&height=40"/>
+						<fb:like class="like" action='like' colorscheme='light' href='http://127.0.0.1:3000/#{shirt.slug}'layout='box_count' show_faces='false' width='66'/>
+						//<div class="fb-like like" data-href="http://127.0.0.1:3000/shirt/#{shirt.slug}" data-send="false" data-layout="box_count" data-width="66" data-show-faces="true"></div>
 					div.like-other
 						<a href='/shirt/#{shirt.slug}'> #{shirt.tag}</a>
 						p Submitted by David
 					div.hr
-
+	-}

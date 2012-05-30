@@ -4,17 +4,25 @@ html(xmlns="http://www.w3.org/1999/xhtml", xmlns:fb="http://ogp.me/ns/fb#")
 	title= title
 	link(href='http://fonts.googleapis.com/css?family=Niconne|Open+Sans', rel='stylesheet', type='text/css')
 	link(rel='stylesheet', href='/stylesheets/style.css')
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
 	if (typeof tagline != "undefined") 
 		<meta property="og:title" content="Music Bacon - #{tagline}" />
 	else
 		<meta property="og:title" content="Music Bacon" />
 	<meta property="og:type" content="product" />
 	if (typeof myshirt != "undefined") 
-		<meta property="og:url" content="#{baseurl}shirt/Your-Tagline-Here4" />
+		<meta property="og:url" content="#{url(tagline)}" />
 	else
-		<meta property="og:url" content="#{baseurl}" />
-	<meta property="og:image" content="#{baseurl}images/shirt.png" />
+		<meta property="og:url" content="#{url('')}" />
+	<meta property="og:image" content="#{url('/images/shirt.png')}" />
 	<meta property="og:site_name" content="Music Bacon" />
 	<meta property="fb:admins" content="56701612" />
+	
+	script
+		function mirror(){
+			var tag = $("#txtarea").val();
+			tag = tag.replace(/(\r\n|\n|\r)/gm,"<br/>");
+			$("#tagline-text").html(tag);
+		}
 	
 	body!= body
